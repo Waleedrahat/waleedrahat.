@@ -1,5 +1,5 @@
 import { ArrowRight, Download, Mail, Github, Linkedin, Sparkles } from "lucide-react";
-import portrait from "@/assets/waleed-portrait-enhanced.png";
+import portrait from "@/assets/waleed-portrait-hero-v2.png";
 
 const floatingSnippets = [
   { top: "12%", left: "6%", text: "const dev = 'Waleed';", delay: "0s" },
