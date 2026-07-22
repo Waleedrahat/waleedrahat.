@@ -82,11 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: "Muhammad Waleed" },
       { property: "og:title", content: "Muhammad Waleed | Full Stack Developer" },
       { property: "og:description", content: "Explore Muhammad Waleed's full stack development projects, skills, and services." },
+      { property: "og:url", content: "https://waledrahat.vercel.app/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://waledrahat.vercel.app/" },
       { rel: "icon", href: "/portfolio-icon.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
