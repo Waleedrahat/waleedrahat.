@@ -1,5 +1,12 @@
 import { Code2, Github, Linkedin, Twitter, Mail } from "lucide-react";
 
+const socialLinks = [
+  { label: "GitHub", href: "#", icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/muhammad-waleed-ali-6b1420225/", icon: Linkedin, external: true },
+  { label: "Twitter", href: "#", icon: Twitter },
+  { label: "Email Muhammad Waleed", href: "mailto:waleedrahat248@gmail.com", icon: Mail },
+];
+
 export function Footer() {
   return (
     <footer className="relative mt-10 border-t border-white/10">
@@ -31,12 +38,14 @@ export function Footer() {
           <div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Elsewhere</div>
             <div className="flex gap-2">
-              {[Github, Linkedin, Twitter, Mail].map((Icon, i) => (
+              {socialLinks.map(({ label, href, icon: Icon, external }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noreferrer" : undefined}
                   className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 hover:border-white/30 hover:bg-white/5 text-muted-foreground hover:text-foreground transition"
-                  aria-label="Social link"
+                  aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
                 </a>

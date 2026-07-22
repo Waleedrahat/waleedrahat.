@@ -14,14 +14,24 @@ export function Contact() {
         />
         <div className="mt-14 grid lg:grid-cols-[1fr_1.2fr] gap-8">
           <div className="glass rounded-2xl p-8 space-y-6">
-            <InfoRow icon={<Mail className="h-4 w-4" />} label="Email" value="waleed@example.com" />
+            <InfoRow
+              icon={<Mail className="h-4 w-4" />}
+              label="Email"
+              value="waleedrahat248@gmail.com"
+              href="mailto:waleedrahat248@gmail.com"
+            />
             <InfoRow icon={<MapPin className="h-4 w-4" />} label="Location" value="Remote · Worldwide" />
             <div>
               <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Socials</div>
               <div className="flex gap-2">
-                <SocialLink icon={<Github className="h-4 w-4" />} label="GitHub" />
-                <SocialLink icon={<Linkedin className="h-4 w-4" />} label="LinkedIn" />
-                <SocialLink icon={<Twitter className="h-4 w-4" />} label="Twitter" />
+                <SocialLink icon={<Github className="h-4 w-4" />} label="GitHub" href="#" />
+                <SocialLink
+                  icon={<Linkedin className="h-4 w-4" />}
+                  label="LinkedIn"
+                  href="https://www.linkedin.com/in/muhammad-waleed-ali-6b1420225/"
+                  external
+                />
+                <SocialLink icon={<Twitter className="h-4 w-4" />} label="Twitter" href="#" />
               </div>
             </div>
             <div className="rounded-xl border border-white/10 p-5 bg-gradient-to-br from-brand/10 to-brand-2/10">
@@ -83,22 +93,24 @@ function Field({ label, name, type = "text", placeholder }: { label: string; nam
   );
 }
 
-function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+function InfoRow({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) {
   return (
     <div className="flex items-start gap-3">
       <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/5 border border-white/10 text-brand">{icon}</span>
       <div>
         <div className="text-[11px] uppercase tracking-widest text-muted-foreground">{label}</div>
-        <div className="text-sm">{value}</div>
+        {href ? <a href={href} className="text-sm hover:text-brand transition-colors">{value}</a> : <div className="text-sm">{value}</div>}
       </div>
     </div>
   );
 }
 
-function SocialLink({ icon, label }: { icon: React.ReactNode; label: string }) {
+function SocialLink({ icon, label, href, external = false }: { icon: React.ReactNode; label: string; href: string; external?: boolean }) {
   return (
     <a
-      href="#"
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
       aria-label={label}
       className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 hover:border-white/30 hover:bg-white/5 text-muted-foreground hover:text-foreground transition"
     >

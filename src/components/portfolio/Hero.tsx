@@ -69,7 +69,13 @@ export function Hero() {
             <a href="#" aria-label="GitHub" className="hover:text-foreground transition-colors">
               <Github className="h-5 w-5" />
             </a>
-            <a href="#" aria-label="LinkedIn" className="hover:text-foreground transition-colors">
+            <a
+              href="https://www.linkedin.com/in/muhammad-waleed-ali-6b1420225/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Muhammad Waleed on LinkedIn"
+              className="hover:text-foreground transition-colors"
+            >
               <Linkedin className="h-5 w-5" />
             </a>
             <div className="h-px flex-1 max-w-32 bg-border" />
