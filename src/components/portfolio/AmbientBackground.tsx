@@ -3,6 +3,7 @@ import { useEffect } from "react";
 export function AmbientBackground() {
   return (
     <div className="ambient-wallpaper" aria-hidden>
+      <div className="ambient-wallpaper__image" />
       <div className="ambient-wallpaper__grid" />
       <div className="ambient-wallpaper__beam ambient-wallpaper__beam--one" />
       <div className="ambient-wallpaper__beam ambient-wallpaper__beam--two" />
