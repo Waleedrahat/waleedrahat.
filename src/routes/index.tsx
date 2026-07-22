@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="relative min-h-dvh">
+    <div className="relative isolate min-h-dvh overflow-clip">
       <AmbientBackground />
       <MotionEffects />
       <Navbar />

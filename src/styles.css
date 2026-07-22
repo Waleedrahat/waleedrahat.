@@ -191,7 +191,7 @@
 .ambient-wallpaper {
   position: fixed;
   inset: 0;
-  z-index: -20;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
   contain: strict;
@@ -199,6 +199,17 @@
     radial-gradient(circle at 15% 10%, oklch(.45 .19 286 / .16), transparent 34%),
     radial-gradient(circle at 82% 28%, oklch(.54 .15 218 / .13), transparent 32%),
     linear-gradient(145deg, #080b17, #0d1326 50%, #090b18);
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+main section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 850px;
 }
 
 .ambient-wallpaper::after {
@@ -336,6 +347,29 @@ main article:hover {
     transition-duration: .01ms !important;
   }
   .motion-reveal { opacity: 1; transform: none; }
+}
+
+@media (max-width: 767px) {
+  .ambient-wallpaper__image {
+    inset: -2%;
+    background-position: 62% center;
+    animation-duration: 42s;
+  }
+
+  .ambient-wallpaper__grid,
+  .ambient-wallpaper__beam--two,
+  .ambient-wallpaper__noise {
+    display: none;
+  }
+
+  .ambient-wallpaper__beam {
+    filter: blur(32px);
+    opacity: .14;
+  }
+
+  .glass {
+    backdrop-filter: blur(6px) saturate(115%);
+  }
 }
 
 @utility animate-float { animation: float-y 6s ease-in-out infinite; }
