@@ -120,13 +120,13 @@
 
 @utility glass {
   background: color-mix(in oklab, var(--card) 55%, transparent);
-  backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(9px) saturate(125%);
   border: 1px solid oklch(1 0 0 / 0.08);
 }
 
 @utility glass-strong {
   background: color-mix(in oklab, var(--card) 75%, transparent);
-  backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(13px) saturate(135%);
   border: 1px solid oklch(1 0 0 / 0.1);
 }
 
@@ -168,16 +168,9 @@
   to { transform: translateX(-50%); }
 }
 
-@keyframes aurora-drift-one {
-  0%, 100% { transform: translate3d(-8vw, -5vh, 0) rotate(0deg) scale(1); }
-  35% { transform: translate3d(22vw, 13vh, 0) rotate(24deg) scale(1.18); }
-  70% { transform: translate3d(5vw, 48vh, 0) rotate(-15deg) scale(.9); }
-}
-
-@keyframes aurora-drift-two {
-  0%, 100% { transform: translate3d(5vw, 55vh, 0) rotate(0deg) scale(1.05); }
-  40% { transform: translate3d(-28vw, 6vh, 0) rotate(-28deg) scale(.88); }
-  75% { transform: translate3d(-6vw, -18vh, 0) rotate(18deg) scale(1.2); }
+@keyframes beam-drift {
+  0%, 100% { transform: translate3d(-5%, -2%, 0) rotate(-12deg); }
+  50% { transform: translate3d(9%, 5%, 0) rotate(-7deg); }
 }
 
 @keyframes grid-travel {
@@ -185,11 +178,9 @@
   to { transform: perspective(700px) rotateX(62deg) translateY(-2%) translateX(42px); }
 }
 
-@keyframes particle-rise {
-  0% { transform: translate3d(0, 30px, 0) scale(.6); opacity: 0; }
-  20% { opacity: .65; }
-  70% { opacity: .25; }
-  100% { transform: translate3d(24px, -140px, 0) scale(1.4); opacity: 0; }
+@keyframes stars-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(34px, -28px, 0); }
 }
 
 .ambient-wallpaper {
@@ -198,96 +189,91 @@
   z-index: -20;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(145deg, oklch(.105 .025 278), oklch(.14 .035 265) 52%, oklch(.105 .025 295));
+  contain: strict;
+  background:
+    radial-gradient(circle at 15% 10%, oklch(.45 .19 286 / .16), transparent 34%),
+    radial-gradient(circle at 82% 28%, oklch(.54 .15 218 / .13), transparent 32%),
+    linear-gradient(145deg, #080b17, #0d1326 50%, #090b18);
 }
 
 .ambient-wallpaper::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 45%, transparent 20%, oklch(.06 .02 270 / .62) 100%);
+  background: radial-gradient(circle at 50% 40%, transparent 18%, rgb(3 5 14 / .55) 100%);
 }
 
 .ambient-wallpaper__grid {
   position: absolute;
-  inset: -70% -25% -20%;
-  opacity: .16;
+  inset: -55% -20% -10%;
+  opacity: .12;
   background-image:
     linear-gradient(oklch(.75 .16 210 / .24) 1px, transparent 1px),
     linear-gradient(90deg, oklch(.72 .19 295 / .23) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(to bottom, transparent 25%, black 65%, transparent 100%);
-  animation: grid-travel 10s linear infinite;
-}
-
-.ambient-wallpaper__aurora {
-  position: absolute;
-  width: 54vw;
-  height: 54vw;
-  min-width: 520px;
-  min-height: 520px;
-  border-radius: 46% 54% 62% 38%;
-  filter: blur(85px);
-  mix-blend-mode: screen;
+  animation: grid-travel 18s linear infinite;
   will-change: transform;
 }
 
-.ambient-wallpaper__aurora--one {
-  top: -20%;
-  left: -12%;
-  background: oklch(.62 .25 295 / .2);
-  animation: aurora-drift-one 24s ease-in-out infinite;
+.ambient-wallpaper__beam {
+  position: absolute;
+  width: 70vw;
+  height: 20vw;
+  min-height: 180px;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: .3;
+  will-change: transform;
+  animation: beam-drift 22s ease-in-out infinite;
 }
 
-.ambient-wallpaper__aurora--two {
+.ambient-wallpaper__beam--one {
+  top: 12%;
+  left: -18%;
+  background: linear-gradient(90deg, transparent, oklch(.65 .23 292 / .55), oklch(.7 .17 230 / .3), transparent);
+}
+
+.ambient-wallpaper__beam--two {
   right: -22%;
-  top: 4%;
-  background: oklch(.7 .19 210 / .17);
-  animation: aurora-drift-two 29s ease-in-out infinite;
+  bottom: 8%;
+  background: linear-gradient(90deg, transparent, oklch(.66 .18 218 / .45), oklch(.66 .2 328 / .3), transparent);
+  animation-delay: -11s;
+  animation-direction: reverse;
 }
 
-.ambient-wallpaper__aurora--three {
-  left: 28%;
-  bottom: -36%;
-  background: oklch(.65 .24 340 / .14);
-  animation: aurora-drift-one 33s ease-in-out -10s infinite reverse;
-}
-
-.ambient-wallpaper__pointer {
+.ambient-wallpaper__stars {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(360px circle at var(--pointer-x, 50vw) var(--pointer-y, 35vh), oklch(.75 .16 210 / .11), transparent 70%);
-}
-
-.ambient-wallpaper__particles span {
-  position: absolute;
-  border-radius: 999px;
-  background: white;
-  box-shadow: 0 0 12px 2px oklch(.75 .16 210 / .7);
-  animation: particle-rise 16s ease-in-out infinite;
+  inset: -34px;
+  opacity: .25;
+  background-image:
+    radial-gradient(circle, white 1px, transparent 1.5px),
+    radial-gradient(circle, oklch(.78 .16 218) .7px, transparent 1px);
+  background-position: 0 0, 24px 31px;
+  background-size: 86px 86px, 113px 113px;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+  animation: stars-drift 30s linear infinite;
+  will-change: transform;
 }
 
 .ambient-wallpaper__noise {
   position: absolute;
   inset: 0;
-  opacity: .035;
+  opacity: .022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
 
 .motion-reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0) scale(.985);
-  filter: blur(5px);
+  transform: translate3d(0, 22px, 0);
   transition:
-    opacity .8s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms),
-    transform .8s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms),
-    filter .8s ease var(--reveal-delay, 0ms);
+    opacity .65s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms),
+    transform .65s cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms);
 }
 
 .motion-reveal--visible {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
-  filter: blur(0);
+  transform: translate3d(0, 0, 0);
 }
 
 main section::before {
@@ -326,8 +312,7 @@ main article:hover {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .motion-reveal { opacity: 1; transform: none; filter: none; }
-  .ambient-wallpaper__pointer { display: none; }
+  .motion-reveal { opacity: 1; transform: none; }
 }
 
 @utility animate-float { animation: float-y 6s ease-in-out infinite; }
