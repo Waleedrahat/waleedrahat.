@@ -8,6 +8,7 @@ import { Projects } from "@/components/portfolio/Projects";
 import { Experience } from "@/components/portfolio/Experience";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
+import { AmbientBackground, MotionEffects } from "@/components/portfolio/AmbientBackground";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +34,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative min-h-dvh">
+      <AmbientBackground />
+      <MotionEffects />
       <Navbar />
       <main>
         <Hero />
