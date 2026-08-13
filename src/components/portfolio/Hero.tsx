@@ -1,7 +1,13 @@
 import { ArrowRight, Download, Mail, Github, Linkedin, Sparkles } from "lucide-react";
 import portrait from "@/assets/waleed-portrait-hero-v2.png";
 
-const floatingSnippets = [
+const floatingSnippets: Array<{
+  top: string;
+  left?: string;
+  right?: string;
+  text: string;
+  delay: string;
+}> = [
   { top: "12%", left: "6%", text: "const dev = 'Waleed';", delay: "0s" },
   { top: "70%", left: "3%", text: "npm run build", delay: "1.2s" },
   { top: "22%", right: "5%", text: "<Component />", delay: "0.6s" },
@@ -32,7 +38,7 @@ export function Hero() {
         <div
           key={i}
           className="hidden md:block absolute font-mono text-xs text-muted-foreground/70 glass rounded-lg px-3 py-2 animate-float"
-          style={{ top: s.top, left: (s as any).left, right: (s as any).right, animationDelay: s.delay }}
+          style={{ top: s.top, left: s.left, right: s.right, animationDelay: s.delay }}
         >
           {s.text}
         </div>
@@ -50,18 +56,27 @@ export function Hero() {
             <span className="text-foreground/90">Full Stack Developer</span>
           </h1>
           <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            I create powerful web applications using modern frontend and backend
-            technologies, focusing on performance, usability, and great user
-            experiences.
+            I create powerful web applications using modern frontend and backend technologies,
+            focusing on performance, usability, and great user experiences.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#projects" className="btn-primary rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2">
+            <a
+              href="#projects"
+              className="btn-primary rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2"
+            >
               View My Projects <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#contact" className="btn-ghost rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2">
+            <a
+              href="#contact"
+              className="btn-ghost rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2"
+            >
               <Mail className="h-4 w-4" /> Contact Me
             </a>
-            <a href="#" className="btn-ghost rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2">
+            <a
+              href="/waleed-resume.pdf"
+              download="Muhammad-Waleed-Resume.pdf"
+              className="btn-ghost rounded-full px-6 py-3 text-sm font-medium inline-flex items-center gap-2"
+            >
               <Download className="h-4 w-4" /> Download Resume
             </a>
           </div>
@@ -85,7 +100,10 @@ export function Hero() {
 
         <div className="relative mx-auto lg:mx-0">
           <div className="relative">
-            <div aria-hidden className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-brand/40 via-brand-3/30 to-brand-2/40 blur-2xl" />
+            <div
+              aria-hidden
+              className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-brand/40 via-brand-3/30 to-brand-2/40 blur-2xl"
+            />
             <div className="relative glass-strong rounded-[2rem] p-3">
               <img
                 src={portrait}
@@ -100,7 +118,9 @@ export function Hero() {
               </div>
               <div className="absolute -top-4 -right-4 glass-strong rounded-2xl px-4 py-3 animate-float [animation-delay:-2s]">
                 <div className="text-2xl font-bold text-gradient">50+</div>
-                <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Projects</div>
+                <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Projects
+                </div>
               </div>
             </div>
           </div>
