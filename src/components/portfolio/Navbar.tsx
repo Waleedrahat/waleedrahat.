@@ -16,10 +16,24 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 20);
+        ticking = false;
+      });
+    };
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => event.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
   return (
@@ -61,6 +75,8 @@ export function Navbar() {
           </div>
           <button
             aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
             className="lg:hidden grid h-10 w-10 place-items-center rounded-lg border border-white/10"
             onClick={() => setOpen((v) => !v)}
           >
@@ -68,7 +84,7 @@ export function Navbar() {
           </button>
         </nav>
         {open && (
-          <div className="lg:hidden mt-2 glass-strong rounded-2xl p-3">
+          <div id="mobile-navigation" className="lg:hidden mt-2 glass-strong rounded-2xl p-3 shadow-2xl">
             <ul className="flex flex-col">
               {links.map((l) => (
                 <li key={l.href}>

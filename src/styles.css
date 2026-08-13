@@ -43,16 +43,16 @@
 :root {
   --radius: 0.9rem;
 
-  --background: oklch(0.14 0.02 275);
+  --background: oklch(0.105 0.028 275);
   --foreground: oklch(0.97 0.01 260);
 
-  --card: oklch(0.19 0.025 275);
+  --card: oklch(0.175 0.035 275);
   --card-foreground: oklch(0.97 0.01 260);
 
   --popover: oklch(0.17 0.025 275);
   --popover-foreground: oklch(0.97 0.01 260);
 
-  --primary: oklch(0.72 0.19 295);
+  --primary: oklch(0.76 0.2 295);
   --primary-foreground: oklch(0.14 0.02 275);
 
   --secondary: oklch(0.24 0.03 275);
@@ -61,7 +61,7 @@
   --muted: oklch(0.22 0.025 275);
   --muted-foreground: oklch(0.72 0.03 265);
 
-  --accent: oklch(0.75 0.16 210);
+  --accent: oklch(0.8 0.16 205);
   --accent-foreground: oklch(0.14 0.02 275);
 
   --destructive: oklch(0.65 0.24 25);
@@ -71,9 +71,9 @@
   --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.72 0.19 295);
 
-  --brand: oklch(0.72 0.19 295);   /* violet */
-  --brand-2: oklch(0.75 0.16 210); /* cyan */
-  --brand-3: oklch(0.78 0.19 340); /* magenta */
+  --brand: oklch(0.76 0.2 295);   /* electric violet */
+  --brand-2: oklch(0.8 0.16 205); /* bright cyan */
+  --brand-3: oklch(0.76 0.22 345); /* vivid magenta */
 
   --gradient-brand: linear-gradient(135deg, oklch(0.72 0.19 295), oklch(0.75 0.16 210));
   --gradient-brand-3: linear-gradient(135deg, oklch(0.78 0.19 340), oklch(0.72 0.19 295) 50%, oklch(0.75 0.16 210));
@@ -89,6 +89,7 @@
   }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
   }
   body {
     background-color: var(--color-background);
@@ -101,7 +102,12 @@
       radial-gradient(800px 500px at 50% 100%, oklch(0.78 0.19 340 / 0.12), transparent 60%);
     background-attachment: fixed;
     overflow-x: hidden;
+    min-height: 100dvh;
   }
+  a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+  button, a { touch-action: manipulation; }
+  :focus-visible { outline: 2px solid var(--brand-2); outline-offset: 4px; }
+  section[id] { scroll-margin-top: 7rem; }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
@@ -168,6 +174,15 @@
   to { transform: translateX(-50%); }
 }
 
+html { scrollbar-color: oklch(.72 .19 295 / .7) oklch(.11 .02 275); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: oklch(.11 .02 275); }
+::-webkit-scrollbar-thumb {
+  border: 2px solid oklch(.11 .02 275);
+  border-radius: 999px;
+  background: linear-gradient(var(--brand), var(--brand-2));
+}
+
 @keyframes beam-drift {
   0%, 100% { transform: translate3d(-5%, -2%, 0) rotate(-12deg); }
   50% { transform: translate3d(9%, 5%, 0) rotate(-7deg); }
@@ -198,7 +213,8 @@
   background:
     radial-gradient(circle at 15% 10%, oklch(.45 .19 286 / .16), transparent 34%),
     radial-gradient(circle at 82% 28%, oklch(.54 .15 218 / .13), transparent 32%),
-    linear-gradient(145deg, #080b17, #0d1326 50%, #090b18);
+    radial-gradient(circle at 48% 75%, oklch(.46 .2 345 / .09), transparent 38%),
+    linear-gradient(145deg, #050713, #0a1022 48%, #070817);
 }
 
 main,
@@ -218,7 +234,7 @@ main section {
   inset: 0;
   z-index: 5;
   background:
-    linear-gradient(to bottom, rgb(3 6 17 / .25), rgb(3 5 14 / .58)),
+    linear-gradient(to bottom, rgb(3 6 17 / .18), rgb(3 5 14 / .66)),
     radial-gradient(circle at 48% 36%, transparent 12%, rgb(3 5 14 / .48) 100%);
 }
 
@@ -228,7 +244,7 @@ main section {
   background-image: url("./assets/dark-tech-wallpaper.jpg");
   background-size: cover;
   background-position: center;
-  opacity: .72;
+  opacity: .58;
   animation: wallpaper-drift 30s ease-in-out infinite;
   will-change: transform;
 }
@@ -339,6 +355,16 @@ main article:hover {
   box-shadow: 0 24px 70px -34px oklch(.72 .19 295 / .55), inset 0 1px 0 oklch(1 0 0 / .1);
 }
 
+main section:nth-of-type(even)::after {
+  content: "";
+  position: absolute;
+  inset: 4% 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, oklch(.72 .19 295 / .035) 35%, oklch(.75 .16 210 / .035) 65%, transparent);
+  border-block: 1px solid oklch(1 0 0 / .025);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
@@ -350,6 +376,8 @@ main article:hover {
 }
 
 @media (max-width: 767px) {
+  body { background-attachment: scroll; }
+  .section-pad { padding-block: 4.5rem; }
   .ambient-wallpaper__image {
     inset: -2%;
     background-position: 62% center;

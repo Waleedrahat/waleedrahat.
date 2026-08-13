@@ -46,7 +46,7 @@ export function Experience() {
           <ul className="space-y-8">
             {items.map((it, i) => (
               <li key={it.title} className="md:grid md:grid-cols-2 md:gap-10 relative">
-                <div className={`md:${i % 2 === 0 ? "col-start-1 text-right pr-10" : "col-start-2 pl-10"}`}>
+                <div className={i % 2 === 0 ? "md:col-start-1 md:text-right md:pr-10" : "md:col-start-2 md:pl-10"}>
                   <div className="glass rounded-2xl p-6 relative">
                     <div className="text-xs font-mono text-brand uppercase tracking-widest">{it.year}</div>
                     <h3 className="mt-2 font-display text-lg font-semibold">{it.title}</h3>

@@ -24,6 +24,11 @@ export function MotionEffects() {
       target.style.setProperty("--reveal-delay", `${Math.min(index % 5, 4) * 70}ms`);
     });
 
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach((target) => target.classList.add("motion-reveal--visible"));
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
