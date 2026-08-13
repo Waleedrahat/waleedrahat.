@@ -43,10 +43,10 @@
 :root {
   --radius: 0.9rem;
 
-  --background: oklch(0.105 0.028 275);
+  --background: oklch(0.2 0.055 265);
   --foreground: oklch(0.97 0.01 260);
 
-  --card: oklch(0.175 0.035 275);
+  --card: oklch(0.22 0.05 270);
   --card-foreground: oklch(0.97 0.01 260);
 
   --popover: oklch(0.17 0.025 275);
@@ -125,15 +125,15 @@
 }
 
 @utility glass {
-  background: color-mix(in oklab, var(--card) 55%, transparent);
-  backdrop-filter: blur(9px) saturate(125%);
-  border: 1px solid oklch(1 0 0 / 0.08);
+  background: linear-gradient(145deg, oklch(.26 .055 270 / .68), oklch(.17 .045 260 / .58));
+  backdrop-filter: blur(14px) saturate(145%);
+  border: 1px solid oklch(1 0 0 / 0.14);
 }
 
 @utility glass-strong {
-  background: color-mix(in oklab, var(--card) 75%, transparent);
-  backdrop-filter: blur(13px) saturate(135%);
-  border: 1px solid oklch(1 0 0 / 0.1);
+  background: linear-gradient(145deg, oklch(.25 .055 270 / .88), oklch(.15 .04 260 / .82));
+  backdrop-filter: blur(18px) saturate(155%);
+  border: 1px solid oklch(1 0 0 / 0.18);
 }
 
 @utility btn-primary {
@@ -211,10 +211,10 @@ html { scrollbar-color: oklch(.72 .19 295 / .7) oklch(.11 .02 275); }
   pointer-events: none;
   contain: strict;
   background:
-    radial-gradient(circle at 15% 10%, oklch(.45 .19 286 / .16), transparent 34%),
-    radial-gradient(circle at 82% 28%, oklch(.54 .15 218 / .13), transparent 32%),
-    radial-gradient(circle at 48% 75%, oklch(.46 .2 345 / .09), transparent 38%),
-    linear-gradient(145deg, #050713, #0a1022 48%, #070817);
+    radial-gradient(circle at 12% 8%, oklch(.82 .18 290 / .62), transparent 34%),
+    radial-gradient(circle at 85% 22%, oklch(.85 .14 205 / .58), transparent 34%),
+    radial-gradient(circle at 52% 82%, oklch(.8 .2 345 / .42), transparent 42%),
+    linear-gradient(145deg, #263d78, #315ba0 48%, #4b2f7c);
 }
 
 main,
@@ -234,8 +234,8 @@ main section {
   inset: 0;
   z-index: 5;
   background:
-    linear-gradient(to bottom, rgb(3 6 17 / .18), rgb(3 5 14 / .66)),
-    radial-gradient(circle at 48% 36%, transparent 12%, rgb(3 5 14 / .48) 100%);
+    linear-gradient(to bottom, rgb(15 27 66 / .04), rgb(12 18 48 / .4)),
+    radial-gradient(circle at 48% 36%, transparent 15%, rgb(10 18 48 / .24) 100%);
 }
 
 .ambient-wallpaper__image {
@@ -244,7 +244,8 @@ main section {
   background-image: url("./assets/dark-tech-wallpaper.jpg");
   background-size: cover;
   background-position: center;
-  opacity: .58;
+  opacity: .22;
+  mix-blend-mode: soft-light;
   animation: wallpaper-drift 30s ease-in-out infinite;
   will-change: transform;
 }
@@ -253,7 +254,7 @@ main section {
   position: absolute;
   inset: -55% -20% -10%;
   z-index: 2;
-  opacity: .07;
+  opacity: .16;
   background-image:
     linear-gradient(oklch(.75 .16 210 / .24) 1px, transparent 1px),
     linear-gradient(90deg, oklch(.72 .19 295 / .23) 1px, transparent 1px);
@@ -271,7 +272,7 @@ main section {
   border-radius: 50%;
   filter: blur(48px);
   z-index: 3;
-  opacity: .2;
+  opacity: .48;
   will-change: transform;
   animation: beam-drift 22s ease-in-out infinite;
 }
@@ -294,7 +295,7 @@ main section {
   position: absolute;
   inset: -34px;
   z-index: 4;
-  opacity: .15;
+  opacity: .32;
   background-image:
     radial-gradient(circle, white 1px, transparent 1.5px),
     radial-gradient(circle, oklch(.78 .16 218) .7px, transparent 1px);
@@ -352,7 +353,45 @@ main .glass {
 }
 
 main article:hover {
-  box-shadow: 0 24px 70px -34px oklch(.72 .19 295 / .55), inset 0 1px 0 oklch(1 0 0 / .1);
+  transform: translateY(-6px);
+  border-color: oklch(.85 .14 205 / .42);
+  box-shadow: 0 28px 80px -30px oklch(.72 .19 295 / .72), inset 0 1px 0 oklch(1 0 0 / .16);
+}
+
+@keyframes tap-bloom {
+  0% { opacity: .8; transform: translate(-50%, -50%) scale(.1); }
+  65% { opacity: .34; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.tap-ripple {
+  position: fixed;
+  z-index: 9999;
+  width: 90px;
+  height: 90px;
+  pointer-events: none;
+  border: 2px solid oklch(.9 .13 205 / .8);
+  border-radius: 999px;
+  background: radial-gradient(circle, oklch(.9 .13 205 / .34), oklch(.77 .2 295 / .14) 48%, transparent 70%);
+  box-shadow: 0 0 28px oklch(.8 .16 205 / .45);
+  animation: tap-bloom .58s cubic-bezier(.16,.72,.25,1) forwards;
+}
+
+a, button, [role="button"] {
+  position: relative;
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow, filter;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(.2,.75,.25,1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a:hover, button:hover, [role="button"]:hover { filter: brightness(1.12); }
+  nav a:hover, footer a:hover { transform: translateY(-2px); }
+}
+
+a:active, button:active, [role="button"]:active {
+  transform: scale(.96) !important;
+  transition-duration: 80ms;
 }
 
 main section:nth-of-type(even)::after {

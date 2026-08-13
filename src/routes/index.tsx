@@ -9,6 +9,7 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { AmbientBackground, MotionEffects } from "@/components/portfolio/AmbientBackground";
+import { PointerEffects } from "@/components/portfolio/PointerEffects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,6 +37,7 @@ function Index() {
     <div className="relative isolate min-h-dvh overflow-clip">
       <AmbientBackground />
       <MotionEffects />
+      <PointerEffects />
       <Navbar />
       <main>
         <Hero />
